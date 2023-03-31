@@ -11,8 +11,6 @@ export class CustomerService {
   readonly API_URL = environment.host;
 
   private brandUrl = this.API_URL + '/brands';
-  private categoryUrl = this.API_URL + '/categories';
-  private orderUrl = this.API_URL + '/orders';
   private customerUrl = this.API_URL + '/customers';
   constructor(private httpClient: HttpClient) { }
 
