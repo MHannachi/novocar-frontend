@@ -20,6 +20,8 @@ import { CarComponent } from './components/car/car.component';
 import { CategoryComponent } from './components/category/category.component';
 import { BrandComponent } from './components/brand/brand.component';
 import { DropdownModule } from 'primeng/dropdown';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { MakeOrderComponent } from './components/make-order/make-order.component';
 
 
 
@@ -31,7 +33,8 @@ import { DropdownModule } from 'primeng/dropdown';
     OrderComponent,
     CarComponent,
     CategoryComponent,
-    BrandComponent
+    BrandComponent,
+    MakeOrderComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +48,8 @@ import { DropdownModule } from 'primeng/dropdown';
     HttpClientModule,
     ToastModule,
     BrowserAnimationsModule,
-    DropdownModule
+    DropdownModule,
+    InputNumberModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]

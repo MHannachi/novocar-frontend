@@ -32,7 +32,7 @@
               <p-dropdown [options]="categories" optionLabel="name" [(ngModel)]="newCar.category" placeholder="select a category"></p-dropdown>
             </td>
             <td>
-              <input pInputText [(ngModel)]="newCar.price" />
+              <p-inputNumber  [(ngModel)]="newCar.price" mode="currency" inputId="currency-germany" currency="EUR" locale="de-DE"></p-inputNumber>
             </td>
             <td>
               <ng-container >
@@ -73,7 +73,8 @@
                 {{car.price}}€
               </ng-container>
               <ng-container *ngIf="editingRow && editingRowIndex === rowIndex">
-                <input pInputText [(ngModel)]="car.price" />
+                <p-inputNumber  [(ngModel)]="car.price" mode="currency" inputId="currency-germany" currency="EUR" locale="de-DE"></p-inputNumber>
+
               </ng-container>
             </td>
             <td>
