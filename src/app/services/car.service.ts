@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {environment} from "../../environments/environment";
 import {HttpClient, HttpResponse} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Customer} from "../models/customer";
+import {Car} from "../models/customer";
 
 @Injectable({
   providedIn: 'root'
@@ -14,21 +14,22 @@ export class CarService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAllCars(): Observable<Customer[]> {
-    return this.httpClient.get<Customer[]>(`${this.carUrl}`);
+  getAllCars(): Observable<Car[]> {
+    return this.httpClient.get<Car[]>(`${this.carUrl}`);
   }
-  getCarById(id:string): Observable<HttpResponse<Customer>> {
-    return this.httpClient.get<Customer>(`${this.carUrl}/${id}`, {observe:'response'});
-  }
-
-  updateCar(customer: Customer, id: string | undefined): Observable<Customer> {
-    return this.httpClient.put<Customer>(`${this.carUrl}/${id}`, customer);
-  }
-  saveCar(customer: Customer): Observable<Customer> {
-    return this.httpClient.post<Customer>(`${this.carUrl}`, customer);
+  getCarById(id:string): Observable<HttpResponse<Car>> {
+    return this.httpClient.get<Car>(`${this.carUrl}/${id}`, {observe:'response'});
   }
 
-  removeCar(id: string | undefined): Observable<HttpResponse<Customer>> {
-    return this.httpClient.delete<Customer>(`${this.carUrl}/${id}`, {observe:'response'});
+  updateCar(car: Car, id: string | undefined): Observable<Car> {
+    return this.httpClient.put<Car>(`${this.carUrl}/${id}`, car);
+  }
+
+  saveCar(car: Car): Observable<Car> {
+    return this.httpClient.post<Car>(`${this.carUrl}`, car);
+  }
+
+  removeCar(id: string | undefined): Observable<HttpResponse<Car>> {
+    return this.httpClient.delete<Car>(`${this.carUrl}/${id}`, {observe:'response'});
   }
 }

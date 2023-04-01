@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {environment} from "../../environments/environment";
 import {HttpClient, HttpResponse} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Customer} from "../models/customer";
+import {Car} from "../models/customer";
 
 @Injectable({
   providedIn: 'root'
@@ -13,21 +13,21 @@ export class OrderService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAllOrders(): Observable<Customer[]> {
-    return this.httpClient.get<Customer[]>(`${this.orderUrl}`);
+  getAllOrders(): Observable<Car[]> {
+    return this.httpClient.get<Car[]>(`${this.orderUrl}`);
   }
-  getOrderById(id:string): Observable<HttpResponse<Customer>> {
-    return this.httpClient.get<Customer>(`${this.orderUrl}/${id}`, {observe:'response'});
-  }
-
-  updateOrder(customer: Customer, id: string | undefined): Observable<Customer> {
-    return this.httpClient.put<Customer>(`${this.orderUrl}/${id}`, customer);
-  }
-  saveOrder(customer: Customer): Observable<Customer> {
-    return this.httpClient.post<Customer>(`${this.orderUrl}`, customer);
+  getOrderById(id:string): Observable<HttpResponse<Car>> {
+    return this.httpClient.get<Car>(`${this.orderUrl}/${id}`, {observe:'response'});
   }
 
-  removeOrder(id: string | undefined): Observable<HttpResponse<Customer>> {
-    return this.httpClient.delete<Customer>(`${this.orderUrl}/${id}`, {observe:'response'});
+  updateOrder(customer: Car, id: string | undefined): Observable<Car> {
+    return this.httpClient.put<Car>(`${this.orderUrl}/${id}`, customer);
+  }
+  saveOrder(customer: Car): Observable<Car> {
+    return this.httpClient.post<Car>(`${this.orderUrl}`, customer);
+  }
+
+  removeOrder(id: string | undefined): Observable<HttpResponse<Car>> {
+    return this.httpClient.delete<Car>(`${this.orderUrl}/${id}`, {observe:'response'});
   }
 }

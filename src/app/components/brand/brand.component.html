@@ -1,0 +1,65 @@
+<div class="container">
+  <p-toast [showTransformOptions]="'translateX(100%)'"></p-toast>
+  <div class="header">
+    <h1 style="float: left">Brands</h1>
+    <button pButton iconPos="right"  icon="pi pi-plus" (click)="startAddingRow()">New Customer</button>
+  </div>
+  <div class="p-grid p-fluid">
+    <div class="p-col-12">
+      <input pInputText type="text" [(ngModel)]="globalFilter" placeholder="Global Filter" />
+    </div>
+    <div class="p-col-12">
+      <p-table [value]="brands" [paginator]="true" [rows]="10">
+
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Category</th>
+            <th>Actions</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-category let-rowIndex="rowIndex">
+          <tr [pEditableRow]="newBrand" *ngIf="addingRow && rowIndex < 1">
+            <td>
+              <input pInputText [(ngModel)]="newBrand.name" />
+            </td>
+            <td>
+              <ng-container >
+                <button pButton class="m-r-5" icon="pi pi-check" (click)="finishAddingRow(newBrand)"></button>
+                <button pButton class="m-r-5" icon="pi pi-times" (click)="resetButtons()"></button>
+              </ng-container>
+            </td>
+          </tr>
+
+
+          <tr [pEditableRow]="category">
+            <td>
+              <ng-container *ngIf="!editingRow || editingRowIndex !== rowIndex">
+                {{category.name}}
+              </ng-container>
+              <ng-container *ngIf="editingRow && editingRowIndex === rowIndex">
+                <input pInputText [(ngModel)]="category.name" />
+              </ng-container>
+            </td>
+
+            <td>
+              <ng-container *ngIf="!editingRow && !removeRow">
+                <button pButton class="m-r-5" icon="pi pi-pencil" (click)="startEditingRow(rowIndex)"></button>
+                <button pButton class="m-r-5" icon="pi pi-trash" (click)="startRemovingRow(rowIndex)"></button>
+              </ng-container>
+              <ng-container *ngIf="removeRow && editingRowIndex === rowIndex">
+                <button pButton class="m-r-5" icon="pi pi-check" (click)="deleteRow(category.id)"></button>
+                <button pButton class="m-r-5" icon="pi pi-times" (click)="resetButtons()"></button>
+              </ng-container>
+              <ng-container *ngIf="editingRow && editingRowIndex === rowIndex">
+                <button pButton class="m-r-5" icon="pi pi-check" (click)="finishEditingRow(category)"></button>
+                <button pButton class="m-r-5" icon="pi pi-times" (click)="resetButtons()"></button>
+              </ng-container>
+            </td>
+          </tr>
+        </ng-template>
+
+      </p-table>
+    </div>
+  </div>
+</div>
+

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Customer} from "../../models/customer";
+import {Car} from "../../models/customer";
 import {CustomerService} from "../../services/customer.service";
 import {MessageService} from "primeng/api";
 
@@ -9,8 +9,8 @@ import {MessageService} from "primeng/api";
   styleUrls: ['./customer.component.css']
 })
 export class CustomerComponent implements OnInit{
-  customers: Customer[] = [];
-  newCustomer : Customer = new Customer();
+  customers: Car[] = [];
+  newCustomer : Car = new Car();
   globalFilter: string = '';
   editingRow: boolean = false;
   addingRow: boolean = false;
@@ -40,7 +40,7 @@ export class CustomerComponent implements OnInit{
     this.addingRow= true;
   }
 
-  finishEditingRow(customer : Customer) {
+  finishEditingRow(customer : Car) {
     this.customerService.updateCustomer(customer, customer.id).subscribe(customer => {
       this.messageService.add({severity:'success', summary:'Update!', detail:`Customer has been successfully updated`});
     },
@@ -50,10 +50,10 @@ export class CustomerComponent implements OnInit{
       });
     this.resetButtons();
   }
-  finishAddingCustomer(customer : Customer) {
+  finishAddingCustomer(customer : Car) {
     this.customerService.saveCustomer(customer).subscribe(customer => {
       this.messageService.add({severity:'success', summary:'Update!', detail:`Customer has been successfully saved`});
-      this.newCustomer = new Customer();
+      this.newCustomer = new Car();
       this.loadData();
     },
       error => {

@@ -17,6 +17,9 @@ import {MessageService} from "primeng/api";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { OrderComponent } from './components/order/order.component';
 import { CarComponent } from './components/car/car.component';
+import { CategoryComponent } from './components/category/category.component';
+import { BrandComponent } from './components/brand/brand.component';
+import { DropdownModule } from 'primeng/dropdown';
 
 
 
@@ -26,7 +29,9 @@ import { CarComponent } from './components/car/car.component';
     CustomerComponent,
     MenuComponent,
     OrderComponent,
-    CarComponent
+    CarComponent,
+    CategoryComponent,
+    BrandComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +44,8 @@ import { CarComponent } from './components/car/car.component';
     FormsModule,
     HttpClientModule,
     ToastModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    DropdownModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]

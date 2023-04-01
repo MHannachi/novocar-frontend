@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {environment} from "../../environments/environment";
 import {HttpClient, HttpResponse} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Customer} from "../models/customer";
+import {Car} from "../models/customer";
 
 @Injectable({
   providedIn: 'root'
@@ -15,21 +15,21 @@ export class BrandService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAllCategories(): Observable<Customer[]> {
-    return this.httpClient.get<Customer[]>(`${this.brandUrl}`);
+  getAllBrands(): Observable<Car[]> {
+    return this.httpClient.get<Car[]>(`${this.brandUrl}`);
   }
-  getCategoryById(id:string): Observable<HttpResponse<Customer>> {
-    return this.httpClient.get<Customer>(`${this.brandUrl}/${id}`, {observe:'response'});
-  }
-
-  updateCategory(customer: Customer, id: string | undefined): Observable<Customer> {
-    return this.httpClient.put<Customer>(`${this.brandUrl}/${id}`, customer);
-  }
-  saveCategory(customer: Customer): Observable<Customer> {
-    return this.httpClient.post<Customer>(`${this.brandUrl}`, customer);
+  getBrandById(id:string): Observable<HttpResponse<Car>> {
+    return this.httpClient.get<Car>(`${this.brandUrl}/${id}`, {observe:'response'});
   }
 
-  removeCategory(id: string | undefined): Observable<HttpResponse<Customer>> {
-    return this.httpClient.delete<Customer>(`${this.brandUrl}/${id}`, {observe:'response'});
+  updateBrand(customer: Car, id: string | undefined): Observable<Car> {
+    return this.httpClient.put<Car>(`${this.brandUrl}/${id}`, customer);
+  }
+  saveBrand(customer: Car): Observable<Car> {
+    return this.httpClient.post<Car>(`${this.brandUrl}`, customer);
+  }
+
+  removeBrand(id: string | undefined): Observable<HttpResponse<Car>> {
+    return this.httpClient.delete<Car>(`${this.brandUrl}/${id}`, {observe:'response'});
   }
 }

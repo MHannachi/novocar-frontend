@@ -1,41 +1,30 @@
 import {Component, OnInit} from '@angular/core';
-import {Brand} from "../../models/brand";
 import {MessageService} from "primeng/api";
-import {Car} from "../../models/car";
-import {CarService} from "../../services/car.service";
-import {BrandService} from "../../services/brand.service";
 import {Category} from "../../models/category";
 import {CategoryService} from "../../services/category.service";
 
 @Component({
-  selector: 'app-car',
-  templateUrl: './car.component.html',
-  styleUrls: ['./car.component.css']
+  selector: 'app-category',
+  templateUrl: './category.component.html',
+  styleUrls: ['./category.component.css']
 })
-export class CarComponent implements OnInit{
-  brands: Brand[] = [];
-  cars: any[] = [];
-  newCar : Car = new Car();
+export class CategoryComponent implements OnInit{
+  categories: Category[] = [];
+  newCategory : Category = new Category();
   globalFilter: string = '';
   editingRow: boolean = false;
   addingRow: boolean = false;
   removeRow: boolean = false;
   editingRowIndex: number = -1;
-  categories: Category[] = [];
-  constructor(private carService: CarService, private categoryService : CategoryService, private brandService: BrandService, private messageService: MessageService) { }
+
+  constructor(private categoryService: CategoryService, private messageService: MessageService) { }
   ngOnInit(): void {
     this.loadData();
   }
   loadData(): void{
-    this.carService.getAllCars().subscribe(data => {
-      this.cars = data;
-    });
-    this.brandService.getAllBrands().subscribe(data => {
-      this.brands = data;
-    })
     this.categoryService.getAllCategories().subscribe(data => {
       this.categories = data;
-    })
+    });
   }
 
   startRemovingRow(rowIndex: number ){
@@ -51,9 +40,9 @@ export class CarComponent implements OnInit{
     this.addingRow= true;
   }
 
-  finishEditingRow(brand : Brand) {
-    this.carService.updateCar(brand, brand.id).subscribe(data => {
-        this.messageService.add({severity:'success', summary:'Update!', detail:`Brand has been successfully updated`});
+  finishEditingRow(category : Category) {
+    this.categoryService.updateCategory(category, category.id).subscribe(customer => {
+        this.messageService.add({severity:'success', summary:'Update!', detail:`Category has been successfully updated`});
       },
       error => {
         this.messageService.add({severity:'error', summary:'Error', detail:`Something went wrong!`});
@@ -61,10 +50,10 @@ export class CarComponent implements OnInit{
       });
     this.resetButtons();
   }
-  finishAddingRow(car : any) {
-    this.carService.saveCar(car).subscribe(data => {
-        this.messageService.add({severity:'success', summary:'Update!', detail:`Brand has been successfully saved`});
-        this.newCar = new Car();
+  finishAddingRow(category : Category) {
+    this.categoryService.saveCategory(category).subscribe(data => {
+        this.messageService.add({severity:'success', summary:'Update!', detail:`Category has been successfully saved`});
+        this.newCategory = new Category();
         this.loadData();
       },
       error => {
@@ -82,15 +71,15 @@ export class CarComponent implements OnInit{
   }
 
   deleteRow(id: string) {
-    this.carService.removeCar(id).subscribe({
+    this.categoryService.removeCategory(id).subscribe({
       next: () => {
-        this.messageService.add({severity:'success', summary:'Update!', detail:`Brand has been successfully removed`});
+        this.messageService.add({severity:'success', summary:'Update!', detail:`Category has been successfully removed`});
         this.loadData()
       },
       error: () => {
         this.messageService.add({severity:'error', summary:'Error', detail:`Something went wrong!`});
       }
-    });
+    })
     this.resetButtons();
   }
 }

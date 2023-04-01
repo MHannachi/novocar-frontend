@@ -1,41 +1,31 @@
 import {Component, OnInit} from '@angular/core';
-import {Brand} from "../../models/brand";
-import {MessageService} from "primeng/api";
-import {Car} from "../../models/car";
-import {CarService} from "../../services/car.service";
-import {BrandService} from "../../services/brand.service";
 import {Category} from "../../models/category";
-import {CategoryService} from "../../services/category.service";
+import {MessageService} from "primeng/api";
+import {Brand} from "../../models/brand";
+import {BrandService} from "../../services/brand.service";
 
 @Component({
-  selector: 'app-car',
-  templateUrl: './car.component.html',
-  styleUrls: ['./car.component.css']
+  selector: 'app-brand',
+  templateUrl: './brand.component.html',
+  styleUrls: ['./brand.component.css']
 })
-export class CarComponent implements OnInit{
+export class BrandComponent implements OnInit {
   brands: Brand[] = [];
-  cars: any[] = [];
-  newCar : Car = new Car();
+  newBrand : Brand = new Brand();
   globalFilter: string = '';
   editingRow: boolean = false;
   addingRow: boolean = false;
   removeRow: boolean = false;
   editingRowIndex: number = -1;
-  categories: Category[] = [];
-  constructor(private carService: CarService, private categoryService : CategoryService, private brandService: BrandService, private messageService: MessageService) { }
+
+  constructor(private brandService: BrandService, private messageService: MessageService) { }
   ngOnInit(): void {
     this.loadData();
   }
   loadData(): void{
-    this.carService.getAllCars().subscribe(data => {
-      this.cars = data;
-    });
     this.brandService.getAllBrands().subscribe(data => {
       this.brands = data;
-    })
-    this.categoryService.getAllCategories().subscribe(data => {
-      this.categories = data;
-    })
+    });
   }
 
   startRemovingRow(rowIndex: number ){
@@ -52,7 +42,7 @@ export class CarComponent implements OnInit{
   }
 
   finishEditingRow(brand : Brand) {
-    this.carService.updateCar(brand, brand.id).subscribe(data => {
+    this.brandService.updateBrand(brand, brand.id).subscribe(data => {
         this.messageService.add({severity:'success', summary:'Update!', detail:`Brand has been successfully updated`});
       },
       error => {
@@ -61,10 +51,10 @@ export class CarComponent implements OnInit{
       });
     this.resetButtons();
   }
-  finishAddingRow(car : any) {
-    this.carService.saveCar(car).subscribe(data => {
+  finishAddingRow(brand : Brand) {
+    this.brandService.saveBrand(brand).subscribe(data => {
         this.messageService.add({severity:'success', summary:'Update!', detail:`Brand has been successfully saved`});
-        this.newCar = new Car();
+        this.newBrand = new Brand();
         this.loadData();
       },
       error => {
@@ -82,7 +72,7 @@ export class CarComponent implements OnInit{
   }
 
   deleteRow(id: string) {
-    this.carService.removeCar(id).subscribe({
+    this.brandService.removeBrand(id).subscribe({
       next: () => {
         this.messageService.add({severity:'success', summary:'Update!', detail:`Brand has been successfully removed`});
         this.loadData()

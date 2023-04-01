@@ -37,6 +37,16 @@ export class MenuComponent {
             routerLink: '/cars'
           }
         ]
+      },
+      {
+        label: 'Categories',
+        icon: 'pi pi-tags',
+        routerLink: '/categories',
+      },
+      {
+        label: 'Brands',
+        icon: 'pi pi-table',
+        routerLink: '/brands',
       }
     ];
   }

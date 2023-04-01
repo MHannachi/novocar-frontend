@@ -1,1 +1,100 @@
-<p>car works!</p>
+<div class="container">
+  <p-toast [showTransformOptions]="'translateX(100%)'"></p-toast>
+  <div class="header">
+    <h1 style="float: left">Cars</h1>
+    <button pButton iconPos="right"  icon="pi pi-plus" (click)="startAddingRow()">New Customer</button>
+  </div>
+  <div class="p-grid p-fluid">
+    <div class="p-col-12">
+      <input pInputText type="text" [(ngModel)]="globalFilter" placeholder="Global Filter" />
+    </div>
+    <div class="p-col-12">
+      <p-table [value]="cars" [paginator]="true" [rows]="10">
+
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Model</th>
+            <th>Brand</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Actions</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-car let-rowIndex="rowIndex">
+          <tr [pEditableRow]="newCar" *ngIf="addingRow && rowIndex < 1">
+            <td>
+              <input pInputText [(ngModel)]="newCar.model" />
+            </td>
+            <td>
+              <p-dropdown [options]="brands" optionLabel="name" [(ngModel)]="newCar.brand" placeholder="select a brnad"></p-dropdown>
+            </td>
+            <td>
+              <p-dropdown [options]="categories" optionLabel="name" [(ngModel)]="newCar.category" placeholder="select a category"></p-dropdown>
+            </td>
+            <td>
+              <input pInputText [(ngModel)]="newCar.price" />
+            </td>
+            <td>
+              <ng-container >
+                <button pButton class="m-r-5" icon="pi pi-check" (click)="finishAddingRow(newCar)"></button>
+                <button pButton class="m-r-5" icon="pi pi-times" (click)="resetButtons()"></button>
+              </ng-container>
+            </td>
+          </tr>
+
+
+          <tr [pEditableRow]="car">
+            <td>
+              <ng-container *ngIf="!editingRow || editingRowIndex !== rowIndex">
+                {{car.model}}
+              </ng-container>
+              <ng-container *ngIf="editingRow && editingRowIndex === rowIndex">
+                <input pInputText [(ngModel)]="car.model" />
+              </ng-container>
+            </td>
+            <td>
+              <ng-container *ngIf="!editingRow || editingRowIndex !== rowIndex">
+                {{car.brand.name}}
+              </ng-container>
+              <ng-container *ngIf="editingRow && editingRowIndex === rowIndex">
+                <p-dropdown [options]="brands" optionLabel="name" [(ngModel)]="car.brand" ></p-dropdown>
+              </ng-container>
+            </td>
+            <td>
+              <ng-container *ngIf="!editingRow || editingRowIndex !== rowIndex">
+                {{car.category.name}}
+              </ng-container>
+              <ng-container *ngIf="editingRow && editingRowIndex === rowIndex">
+                <p-dropdown [options]="categories" optionLabel="name" [(ngModel)]="car.category" ></p-dropdown>
+              </ng-container>
+            </td>
+            <td>
+              <ng-container *ngIf="!editingRow || editingRowIndex !== rowIndex">
+                {{car.price}}€
+              </ng-container>
+              <ng-container *ngIf="editingRow && editingRowIndex === rowIndex">
+                <input pInputText [(ngModel)]="car.price" />
+              </ng-container>
+            </td>
+            <td>
+              <ng-container *ngIf="!editingRow && !removeRow">
+                <button pButton class="m-r-5" icon="pi pi-pencil" (click)="startEditingRow(rowIndex)"></button>
+                <button pButton class="m-r-5" icon="pi pi-trash" (click)="startRemovingRow(rowIndex)"></button>
+              </ng-container>
+              <ng-container *ngIf="removeRow && editingRowIndex === rowIndex">
+                <button pButton class="m-r-5" icon="pi pi-check" (click)="deleteRow(car.id)"></button>
+                <button pButton class="m-r-5" icon="pi pi-times" (click)="resetButtons()"></button>
+              </ng-container>
+              <ng-container *ngIf="editingRow && editingRowIndex === rowIndex">
+                <button pButton class="m-r-5" icon="pi pi-check" (click)="finishEditingRow(car)"></button>
+                <button pButton class="m-r-5" icon="pi pi-times" (click)="resetButtons()"></button>
+              </ng-container>
+            </td>
+          </tr>
+        </ng-template>
+
+      </p-table>
+    </div>
+  </div>
+</div>
+
