@@ -22,6 +22,11 @@ import { BrandComponent } from './components/brand/brand.component';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { MakeOrderComponent } from './components/make-order/make-order.component';
+import {PickListModule} from "primeng/picklist";
+import {OrderListModule} from "primeng/orderlist";
+import {TagModule} from "primeng/tag";
+
+
 
 
 
@@ -49,7 +54,10 @@ import { MakeOrderComponent } from './components/make-order/make-order.component
     ToastModule,
     BrowserAnimationsModule,
     DropdownModule,
-    InputNumberModule
+    InputNumberModule,
+    PickListModule,
+    OrderListModule,
+    TagModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]

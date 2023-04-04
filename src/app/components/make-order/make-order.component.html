@@ -1,3 +1,63 @@
 <div class="container">
-  <p>make-order works!</p>
+
+  <p-orderList
+    [value]="products"
+    [listStyle]="{ 'max-height': '30rem'}"
+    header="Products"
+    filterBy="model"
+    filterPlaceholder="Filter by name">
+    <ng-template let-product  pTemplate="item">
+      <div style="display: flex; justify-content: space-between">
+          <div class="image-text">
+            <img src="../../../assets/car.jpg" [alt]="product.name" [width]="60" class="image" />
+            <div class="flex-1">
+              <h5 class="mb-2">{{ product.model }}</h5>
+              <span class="vertical-align-middle line-height-1">{{ product.category.name }}</span>
+            </div>
+          </div>
+        <div>
+          <div class="flex flex-column align-items-end">
+            <h6 class="mb-2">{{ '$ ' + product.price }}</h6>
+          </div>
+          <button pButton type="button" class="pi pi-plus" (click)="selectItem(product)"></button>
+        </div>
+      </div>
+    </ng-template>
+  </p-orderList>
+  <form #orderForm="ngForm">
+    <div class="p-grid">
+      <div class="p-col-12">
+        <p-dropdown [options]="customers" optionLabel="firstName" [(ngModel)]="selectedCustomer" placeholder="Select a Customer">
+          <ng-template let-customer pTemplate="item">
+            {{ customer.firstName }} {{ customer.lastName }}
+          </ng-template>
+        </p-dropdown>
+      </div>
+      <div class="p-col-12">
+        <table class="p-datatable">
+          <thead>
+          <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let item of orderItems; let i = index">
+            <td>
+              {{item.car}}
+            </td>
+            <td>
+              <input pInputText type="number" [(ngModel)]="item.quantity" name="quantity"/>
+            </td>
+            <td>
+              <button pButton type="button" icon="pi pi-trash" (click)="removeOrderItem(i)"></button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <button pButton type="button" label="Add Item" (click)="addOrderItem()"></button>
+      </div>
+    </div>
+  </form>
 </div>

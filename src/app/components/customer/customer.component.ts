@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {Car} from "../../models/customer";
+import {Car} from "../../models/car";
 import {CustomerService} from "../../services/customer.service";
 import {MessageService} from "primeng/api";
+import {Customer} from "../../models/customer";
 
 @Component({
   selector: 'app-customer',
@@ -9,8 +10,8 @@ import {MessageService} from "primeng/api";
   styleUrls: ['./customer.component.css']
 })
 export class CustomerComponent implements OnInit{
-  customers: Car[] = [];
-  newCustomer : Car = new Car();
+  customers: Customer[] = [];
+  newCustomer : Customer = new Customer();
   globalFilter: string = '';
   editingRow: boolean = false;
   addingRow: boolean = false;

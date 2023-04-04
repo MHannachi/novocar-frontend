@@ -17,7 +17,10 @@ input{
   margin-right: 5px !important;
 }
 .container{
+  display: flex;
+  justify-content: space-around;
   margin: 5rem;
   border-radius: 10px;
   overflow: hidden;
 }
+

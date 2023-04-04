@@ -5,6 +5,7 @@ import {OrderComponent} from "./components/order/order.component";
 import {CarComponent} from "./components/car/car.component";
 import {CategoryComponent} from "./components/category/category.component";
 import {BrandComponent} from "./components/brand/brand.component";
+import {MakeOrderComponent} from "./components/make-order/make-order.component";
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path:'brands',
     component: BrandComponent
+  },
+  {
+    path:'orders/new',
+    component: MakeOrderComponent
   }
 ];
 

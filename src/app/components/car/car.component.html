@@ -9,7 +9,7 @@
       <input pInputText type="text" [(ngModel)]="globalFilter" placeholder="Global Filter" />
     </div>
     <div class="p-col-12">
-      <p-table [value]="cars" [paginator]="true" [rows]="10">
+      <p-table [value]="cars" [paginator]="true" [rows]="8">
 
         <ng-template pTemplate="header">
           <tr>
@@ -26,7 +26,7 @@
               <input pInputText [(ngModel)]="newCar.model" />
             </td>
             <td>
-              <p-dropdown [options]="brands" optionLabel="name" [(ngModel)]="newCar.brand" placeholder="select a brnad"></p-dropdown>
+              <p-dropdown [options]="brands" optionLabel="name" [(ngModel)]="newCar.brand" placeholder="select a brand"></p-dropdown>
             </td>
             <td>
               <p-dropdown [options]="categories" optionLabel="name" [(ngModel)]="newCar.category" placeholder="select a category"></p-dropdown>
@@ -70,7 +70,7 @@
             </td>
             <td>
               <ng-container *ngIf="!editingRow || editingRowIndex !== rowIndex">
-                {{car.price}}€
+                {{car.price | currency: 'EUR'}}
               </ng-container>
               <ng-container *ngIf="editingRow && editingRowIndex === rowIndex">
                 <p-inputNumber  [(ngModel)]="car.price" mode="currency" inputId="currency-germany" currency="EUR" locale="de-DE"></p-inputNumber>

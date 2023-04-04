@@ -1,0 +1,8 @@
+.image {
+  border-radius: 5px;
+  overflow: hidden;
+}
+.image-text{
+  display: flex;
+  gap: 5px;
+}

@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import {environment} from "../../environments/environment";
 import {HttpClient, HttpResponse} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Car} from "../models/customer";
+import {Car} from "../models/car";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService {
+
 
   readonly API_URL = environment.host;
 

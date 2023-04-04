@@ -51,8 +51,8 @@ export class CarComponent implements OnInit{
     this.addingRow= true;
   }
 
-  finishEditingRow(brand : Brand) {
-    this.carService.updateCar(brand, brand.id).subscribe(data => {
+  finishEditingRow(car : Car) {
+    this.carService.updateCar(car, car.id).subscribe(data => {
         this.messageService.add({severity:'success', summary:'Update!', detail:`Brand has been successfully updated`});
       },
       error => {

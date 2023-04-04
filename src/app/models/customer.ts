@@ -1,6 +1,6 @@
 import {Order} from "./order";
 
-export class Car {
+export class Customer {
   id? : string;
   firstName? : string;
   lastName? : string;

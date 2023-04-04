@@ -19,24 +19,23 @@ export class MenuComponent {
       {
         label: 'Orders',
         icon: 'pi pi-shopping-cart',
-        routerLink: '/orders',
+        items: [
+          {
+            label: 'New Order',
+            icon: 'pi pi-plus',
+            routerLink: '/orders/new'
+          },
+          {
+            label: 'View Orders',
+            icon: 'pi pi-table',
+            routerLink: '/orders'
+          }
+        ]
       },
       {
         label: 'Cars',
         icon: 'pi pi-car',
         routerLink: '/cars',
-        items: [
-          {
-            label: 'New Car',
-            icon: 'pi pi-plus',
-            routerLink: '/cars/new'
-          },
-          {
-            label: 'View Cars',
-            icon: 'pi pi-table',
-            routerLink: '/cars'
-          }
-        ]
       },
       {
         label: 'Categories',
