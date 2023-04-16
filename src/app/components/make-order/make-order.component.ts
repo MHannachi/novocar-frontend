@@ -4,6 +4,9 @@ import {Car} from "../../models/car";
 import {Customer} from "../../models/customer"
 import {OrderItem} from "../../models/orderItem";
 import {CustomerService} from "../../services/customer.service";
+import {MessageService} from "primeng/api";
+import {Order} from "../../models/order";
+import {OrderService} from "../../services/order.service";
 
 @Component({
   selector: 'app-make-order',
@@ -12,11 +15,14 @@ import {CustomerService} from "../../services/customer.service";
 })
 export class MakeOrderComponent implements OnInit{
   customers: Customer[] = [];
+  order: Order = new Order();
   selectedCustomer: Customer = new Customer();
   orderItems: OrderItem[] = [];
-  products: Car[] = [];
-  selectedCars : Car[] = [];
-  constructor(private carService: CarService, private customerService: CustomerService) {}
+  cars: Car[] = [];
+  constructor(private carService: CarService,
+              private customerService: CustomerService,
+              private messageService: MessageService,
+              private orderService: OrderService) {}
 
   ngOnInit() {
     this.loadData()
@@ -24,7 +30,7 @@ export class MakeOrderComponent implements OnInit{
   loadData(): void{
     this.carService.getAllCars().subscribe({
       next: data => {
-        this.products = data;
+        this.cars = data;
       }
     });
     this.customerService.getAllCustomers().subscribe({
@@ -39,15 +45,39 @@ export class MakeOrderComponent implements OnInit{
     let newOrderItem = new OrderItem();
     newOrderItem.car = car;
     newOrderItem.quantity = 1;
-    this.orderItems.unshift(newOrderItem);
-    this.selectedCars.unshift(car);
+    if (this.orderItems.length === 0) {
+      this.orderItems.unshift(newOrderItem);
+    } else {
+      const foundObject = this.orderItems.find(data => data.car?.id === car.id);
+      if (foundObject !== undefined) {
+        foundObject.quantity = (foundObject.quantity ?? 0) + 1;
+      } else {
+        this.orderItems.unshift(newOrderItem);
+      }
+    }
   }
 
   removeOrderItem(i: number) {
     this.orderItems.splice(i,1);
   }
 
-  addOrderItem() {
-
+  submit() {
+    if(Object.keys(this.selectedCustomer).length === 0){
+      this.messageService.add({severity:'warn', summary:'Tip!', detail:`Please choose a Customer`})
+    }else if (this.orderItems.length < 1){
+      this.messageService.add({severity:'warn', summary:'Tip!', detail:`Please choose at least one car.`})
+    }else{
+      this.order.orderItems = this.orderItems;
+      this.order.customer = this.selectedCustomer;
+      this.orderService.saveOrder(this.order).subscribe({
+        next: () => {
+          this.messageService.add({severity:'success', summary:'Success', detail:`Order has been successfully saved`});
+        },
+        error: () => {
+          this.messageService.add({severity:'error', summary:'Error', detail:`Something went wrong!`});
+        }
+      });
+    }
+    console.log(this.order);
   }
 }

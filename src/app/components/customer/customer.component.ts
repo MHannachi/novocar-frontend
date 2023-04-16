@@ -74,7 +74,7 @@ export class CustomerComponent implements OnInit{
   removeCustomer(id: string) {
     this.customerService.removeCustomer(id).subscribe({
       next: () => {
-        this.messageService.add({severity:'success', summary:'Update!', detail:`Customer has been successfully removed`});
+        this.messageService.add({severity:'success', summary:'Success!', detail:`Customer has been successfully removed`});
         this.loadData()
       },
       error: () => {

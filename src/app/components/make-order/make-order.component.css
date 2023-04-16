@@ -6,3 +6,13 @@
   display: flex;
   gap: 5px;
 }
+p-orderList{
+  min-width: 450px;
+}
+.layout{
+  display: flex;
+  margin: 5rem;
+  justify-content: space-between;
+}
+
+

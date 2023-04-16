@@ -25,6 +25,7 @@ import { MakeOrderComponent } from './components/make-order/make-order.component
 import {PickListModule} from "primeng/picklist";
 import {OrderListModule} from "primeng/orderlist";
 import {TagModule} from "primeng/tag";
+import {DataViewModule} from "primeng/dataview";
 
 
 
@@ -57,7 +58,8 @@ import {TagModule} from "primeng/tag";
     InputNumberModule,
     PickListModule,
     OrderListModule,
-    TagModule
+    TagModule,
+    DataViewModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]
