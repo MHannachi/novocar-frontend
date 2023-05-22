@@ -1,6 +1,6 @@
 <p-toast [showTransformOptions]="'translateX(100%)'"></p-toast>
 <div class="container">
-  <div style="display: flex; justify-content: space-around; max-height: 50rem; flex-flow: wrap; gap: 10px">
+  <div style="display: flex; justify-content: space-around; flex-flow: wrap; gap: 10px">
     <p-orderList
       [value]="cars"
       [listStyle]="{ 'max-height': '30rem'}"
@@ -9,24 +9,34 @@
       filterBy="model"
       filterPlaceholder="Filter by name">
       <ng-template let-car pTemplate="item">
-        <div style="display: flex; justify-content: space-between">
+        <div style="display: flex; justify-content: space-between; align-items: center">
             <div class="image-text">
-              <img src="../../../assets/car.jpg" [alt]="car.name" [width]="60" class="image" />
+              <div>
+                <img src="../../../assets/car.jpg" [alt]="car.name" [width]="60" class="image" />
+              </div>
               <div class="flex-1">
                 <h5 class="mb-2">{{ car.model }}</h5>
                 <span class="vertical-align-middle line-height-1">{{ car.category.name }}</span>
               </div>
             </div>
-          <div>
-            <div class="flex flex-column align-items-end">
-              <h6 class="mb-2">{{car.price+'€'}}</h6>
+            <div>
+              <div class="flex flex-column align-items-end" style="margin-bottom: 0.5rem">
+                <h6 class="mb-2">{{car.price+'€'}}</h6>
+              </div>
+              <button pButton style="float: right"  icon="pi pi-shopping-cart" class="p-button-rounded" (click)="selectItem(car)"></button>
             </div>
-            <button pButton icon="pi pi-shopping-cart" class="md:align-self-end mb-2 p-button-rounded" (click)="selectItem(car)"></button>
-          </div>
         </div>
       </ng-template>
     </p-orderList>
 
+
+    <p-fieldset>
+      <ng-template pTemplate="header">
+        <div class="flex align-items-center text-primary">
+          <span class="pi pi-shopping-cart mr-2"></span>
+          <span class="font-bold text-lg"> Shopping Cart</span>
+        </div>
+      </ng-template>
     <form #orderForm="ngForm">
       <div class="p-grid">
         <div class="p-col-12">
@@ -38,13 +48,7 @@
         </div>
         <div class="p-col-12">
           <table class="p-datatable">
-            <thead>
-            <tr>
-              <th>Product</th>
-              <th>Quantity</th>
-              <th></th>
-            </tr>
-            </thead>
+
             <tbody>
             <tr *ngFor="let item of orderItems; let i = index">
               <td>
@@ -60,10 +64,14 @@
             </tr>
             </tbody>
           </table>
+          <p-divider></p-divider>
+          <h3>Total:</h3>
+          <span>{{total}}€</span>
         </div>
       </div>
-      <button pButton type="button" label="Submit" (click)="submit()"></button>
+      <button pButton type="button" style="margin-top: 15px" label="Submit" (click)="submit()"></button>
 
     </form>
+    </p-fieldset>
   </div>
 </div>

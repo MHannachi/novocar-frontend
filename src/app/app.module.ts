@@ -26,6 +26,13 @@ import {PickListModule} from "primeng/picklist";
 import {OrderListModule} from "primeng/orderlist";
 import {TagModule} from "primeng/tag";
 import {DataViewModule} from "primeng/dataview";
+import {FieldsetModule} from "primeng/fieldset";
+import {DividerModule} from "primeng/divider";
+import { FooterComponent } from './components/footer/footer.component';
+import {SplitButtonModule} from "primeng/splitbutton";
+import {MenuModule} from "primeng/menu";
+import {PanelModule} from "primeng/panel";
+import {CardModule} from "primeng/card";
 
 
 
@@ -40,7 +47,8 @@ import {DataViewModule} from "primeng/dataview";
     CarComponent,
     CategoryComponent,
     BrandComponent,
-    MakeOrderComponent
+    MakeOrderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +67,13 @@ import {DataViewModule} from "primeng/dataview";
     PickListModule,
     OrderListModule,
     TagModule,
-    DataViewModule
+    DataViewModule,
+    FieldsetModule,
+    DividerModule,
+    SplitButtonModule,
+    MenuModule,
+    PanelModule,
+    CardModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]

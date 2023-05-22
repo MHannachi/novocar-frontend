@@ -22,6 +22,7 @@ input{
   margin: 5rem;
   border-radius: 10px;
   overflow: hidden;
+  min-height: 75vh;
 }
 form{
   border: #323232 solid 3px;
@@ -30,6 +31,15 @@ form{
   min-width: 450px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+}
+.f-logos{
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.footer-container{
+  display: flex;
   justify-content: space-between;
 }
 

@@ -19,6 +19,7 @@ export class MakeOrderComponent implements OnInit{
   selectedCustomer: Customer = new Customer();
   orderItems: OrderItem[] = [];
   cars: Car[] = [];
+  total: number = 0.0;
   constructor(private carService: CarService,
               private customerService: CustomerService,
               private messageService: MessageService,
@@ -55,10 +56,19 @@ export class MakeOrderComponent implements OnInit{
         this.orderItems.unshift(newOrderItem);
       }
     }
+    this.calculateTotal();
   }
 
   removeOrderItem(i: number) {
     this.orderItems.splice(i,1);
+    this.calculateTotal();
+  }
+
+  calculateTotal(){
+    this.total = 0;
+    this.orderItems.forEach(s => {
+      this.total += (s.car && s.car.price || 0) * (s && s.quantity || 0);
+    })
   }
 
   submit() {

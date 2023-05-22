@@ -1,16 +1,18 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Customer} from "../../models/customer";
 import {CustomerService} from "../../services/customer.service";
 import {MessageService} from "primeng/api";
 import {Car} from "../../models/car";
+import {OrderService} from "../../services/order.service";
+import {Order} from "../../models/order";
 
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
   styleUrls: ['./order.component.css']
 })
-export class OrderComponent {
-  customers: Customer[] = [];
+export class OrderComponent implements OnInit{
+  orders: Order[] = [];
   newCustomer : Customer = new Customer();
   globalFilter: string = '';
   editingRow: boolean = false;
@@ -18,13 +20,13 @@ export class OrderComponent {
   removeRow: boolean = false;
   editingRowIndex: number = -1;
 
-  constructor(private customerService: CustomerService, private messageService: MessageService) { }
+  constructor(private orderService: OrderService, private customerService: CustomerService, private messageService: MessageService) { }
   ngOnInit(): void {
     this.loadData();
   }
   loadData(): void{
-    this.customerService.getAllCustomers().subscribe(customers => {
-      this.customers = customers;
+    this.orderService.getAllOrders().subscribe(orders => {
+      this.orders = orders;
     });
   }
 

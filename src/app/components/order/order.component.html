@@ -1,8 +1,7 @@
 <div class="container">
   <p-toast [showTransformOptions]="'translateX(100%)'"></p-toast>
   <div class="header">
-    <h1 style="float: left">Customers</h1>
-    <button pButton iconPos="right"  icon="pi pi-plus" (click)="startAddingCustomer()">New Customer</button>
+    <h1 style="float: left">Orders</h1>
   </div>
   <div class="p-grid p-fluid">
 
@@ -10,110 +9,41 @@
       <input pInputText type="text" [(ngModel)]="globalFilter" placeholder="Global Filter" />
     </div>
     <div class="p-col-12">
-      <p-table [value]="customers" [paginator]="true" [rows]="8">
+      <p-table [value]="orders" [paginator]="true" [rows]="8">
 
         <ng-template pTemplate="header">
           <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Street</th>
-            <th>Zip Code</th>
-            <th>City</th>
+            <th>Customer</th>
+            <th>Status</th>
+            <th>Items</th>
+            <th>Order Date</th>
             <th>Actions</th>
           </tr>
         </ng-template>
 
 
-        <ng-template pTemplate="body" let-customer let-rowIndex="rowIndex">
+        <ng-template pTemplate="body" let-order let-rowIndex="rowIndex">
 
-          <tr [pEditableRow]="newCustomer" *ngIf="addingRow && rowIndex < 1">
-            <td>
-              <input pInputText [(ngModel)]="newCustomer.firstName" />
-            </td>
-            <td>
-              <input pInputText [(ngModel)]="newCustomer.lastName" />
-            </td>
-            <td>
-              <input pInputText [(ngModel)]="newCustomer.email" />
-            </td>
-            <td>
-              <input pInputText [(ngModel)]="newCustomer.phone" />
-            </td>
-            <td>
-              <input pInputText [(ngModel)]="newCustomer.street" />
-            </td>
-            <td>
-              <input pInputText [(ngModel)]="newCustomer.zipCode" />
-            </td>
-            <td>
-              <input pInputText [(ngModel)]="newCustomer.city" />
-            </td>
+
+          <tr [pEditableRow]="order">
             <td>
               <ng-container >
-                <button pButton class="m-r-5" icon="pi pi-check" (click)="finishAddingCustomer(newCustomer)"></button>
-                <button pButton class="m-r-5" icon="pi pi-times" (click)="resetButtons()"></button>
+                {{order.customer.firstName}} {{order.customer.lastName}}
               </ng-container>
             </td>
-          </tr>
-
-
-          <tr [pEditableRow]="customer">
             <td>
-              <ng-container *ngIf="!editingRow || editingRowIndex !== rowIndex">
-                {{customer.firstName}}
+              <ng-container>
+                <p-tag severity="success" value="{{order.orderStatus}}"></p-tag>
               </ng-container>
-              <ng-container *ngIf="editingRow && editingRowIndex === rowIndex">
-                <input pInputText [(ngModel)]="customer.firstName" />
+            </td>
+            <td>
+              <ng-container>
+                {{order.orderItems.length}}
               </ng-container>
             </td>
             <td>
               <ng-container *ngIf="!editingRow || editingRowIndex !== rowIndex">
-                {{customer.lastName}}
-              </ng-container>
-              <ng-container *ngIf="editingRow && editingRowIndex === rowIndex">
-                <input pInputText [(ngModel)]="customer.lastName" />
-              </ng-container>
-            </td>
-            <td>
-              <ng-container *ngIf="!editingRow || editingRowIndex !== rowIndex">
-                {{customer.email}}
-              </ng-container>
-              <ng-container *ngIf="editingRow && editingRowIndex === rowIndex">
-                <input pInputText [(ngModel)]="customer.email" />
-              </ng-container>
-            </td>
-            <td>
-              <ng-container *ngIf="!editingRow || editingRowIndex !== rowIndex">
-                {{customer.phone}}
-              </ng-container>
-              <ng-container *ngIf="editingRow && editingRowIndex === rowIndex">
-                <input pInputText [(ngModel)]="customer.phone" />
-              </ng-container>
-            </td>
-            <td>
-              <ng-container *ngIf="!editingRow || editingRowIndex !== rowIndex">
-                {{customer.street}}
-              </ng-container>
-              <ng-container *ngIf="editingRow && editingRowIndex === rowIndex">
-                <input pInputText [(ngModel)]="customer.street" />
-              </ng-container>
-            </td>
-            <td>
-              <ng-container *ngIf="!editingRow || editingRowIndex !== rowIndex">
-                {{customer.zipCode}}
-              </ng-container>
-              <ng-container *ngIf="editingRow && editingRowIndex === rowIndex">
-                <input pInputText [(ngModel)]="customer.zipCode" />
-              </ng-container>
-            </td>
-            <td>
-              <ng-container *ngIf="!editingRow || editingRowIndex !== rowIndex">
-                {{customer.city}}
-              </ng-container>
-              <ng-container *ngIf="editingRow && editingRowIndex === rowIndex">
-                <input pInputText [(ngModel)]="customer.city" />
+                {{order.orderDate}}
               </ng-container>
             </td>
             <td>
@@ -122,11 +52,11 @@
                 <button pButton class="m-r-5" icon="pi pi-trash" (click)="startRemovingCustomer(rowIndex)"></button>
               </ng-container>
               <ng-container *ngIf="removeRow && editingRowIndex === rowIndex">
-                <button pButton class="m-r-5" icon="pi pi-check" (click)="removeCustomer(customer.id)"></button>
+                <button pButton class="m-r-5" icon="pi pi-check" (click)="removeCustomer(order.id)"></button>
                 <button pButton class="m-r-5" icon="pi pi-times" (click)="resetButtons()"></button>
               </ng-container>
               <ng-container *ngIf="editingRow && editingRowIndex === rowIndex">
-                <button pButton class="m-r-5" icon="pi pi-check" (click)="finishEditingRow(customer)"></button>
+                <button pButton class="m-r-5" icon="pi pi-check" (click)="finishEditingRow(order)"></button>
                 <button pButton class="m-r-5" icon="pi pi-times" (click)="resetButtons()"></button>
               </ng-container>
             </td>

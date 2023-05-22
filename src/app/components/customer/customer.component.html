@@ -28,7 +28,7 @@
 
         <ng-template pTemplate="body" let-customer let-rowIndex="rowIndex">
 
-          <tr [pEditableRow]="newCustomer" *ngIf="addingRow && rowIndex < 1">
+          <tr [pEditableRow]="newCustomer" *ngIf="(addingRow && rowIndex < 1) || customers === []">
             <td>
                 <input pInputText [(ngModel)]="newCustomer.firstName" />
             </td>
